@@ -5,3 +5,4 @@ enable_testing()
 add_subdirectory(src)
 add_subdirectory(tests)
 
+INSTALL(DIRECTORY include/ DESTINATION include/optv/)
