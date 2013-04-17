@@ -1,8 +1,10 @@
 enable_testing()
 find_package(Check REQUIRED)
 include_directories(${CHECK_INCLUDE_DIRS})
-set(LIBS ${LIBS} ${CHECK_LIBRARIES} optv)
 include_directories(. ../src ../include/)
+
+find_library(OPTV_LIBRARY optv ../src)
+set(LIBS ${LIBS} ${CHECK_LIBRARIES} ${OPTV_LIBRARY})
 
 add_executable(check_fb check_fb.c)
 target_link_libraries(check_fb ${LIBS})
