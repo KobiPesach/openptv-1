@@ -3,10 +3,11 @@ find_package(Check REQUIRED)
 include_directories(${CHECK_INCLUDE_DIRS})
 include_directories(. ../src ../include/)
 
-find_library(OPTV_LIBRARY optv ../src)
-set(LIBS ${LIBS} ${CHECK_LIBRARIES} ${OPTV_LIBRARY})
-
 add_executable(check_fb check_fb.c)
+add_dependencies(check_fb optv)
+
+get_property(OPTV_LIBRARY TARGET optv PROPERTY LOCATION)
+set(LIBS ${LIBS} ${CHECK_LIBRARIES} ${OPTV_LIBRARY})
 target_link_libraries(check_fb ${LIBS})
 add_test(check_fb ${CMAKE_CURRENT_BINARY_DIR}/check_fb)
 
