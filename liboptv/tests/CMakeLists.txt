@@ -25,5 +25,6 @@ add_custom_command(TARGET check_calibration PRE_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_CURRENT_SOURCE_DIR}/testing_fodder $<TARGET_FILE_DIR:check_calibration>/testing_fodder)
 
-add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND})
-add_dependencies(check check_fb check_calibration)
+add_custom_target(verify COMMAND ${CMAKE_CTEST_COMMAND})
+add_dependencies(verify check_fb check_calibration)
+
