@@ -69,25 +69,10 @@ typedef struct {
 
 
 
-int compare_mm_np(mm_np *mm1, mm_np *mm2)
-{
-	if ((mm1->nlay == mm2->nlay) && (mm1->n1 == mm2->n1)  && (mm1->n2[3] == mm2->n2[3]) &&
-	 (mm1->d[3] == mm2->d[3]) && (mm1->n3 == mm2->n3) && (mm1->lut == mm2->lut))
-		return 1;
-	else
-		return 0;
-}
-
 
 control_par* read_control_par(char *filename);
 void free_control_par(control_par *cp);
-int compare_control_par(control_par *c1, control_par *c2)
-{
-	if (compare_mm_np(c1->mm,c2->mm))
-		return 1;
-	else
-		return 0;
-}
+int compare_control_par(control_par *c1, control_par *c2);
 
 #endif
 
