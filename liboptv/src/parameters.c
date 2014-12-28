@@ -283,6 +283,27 @@ void free_control_par(control_par *cp) {
     free(cp);
 }
 
+/* compare_mm_np() checks that all fields of two mm_np objects are
+   equal.
+   
+   Arguments:
+   mm_np *mm1, *mm2 - addresses of the objects for comparison.
+   
+   Returns:
+   True if equal, false otherwise.
+*/
+
+int compare_mm_np(mm_np *mm1, mm_np *mm2)
+{
+	return (
+	     (mm1->nlay == mm2->nlay) && 
+        (mm1->n1 == mm2->n1) && 
+	     (mm1->n2[3] == mm2->n2[3]) && 
+   	  (mm1->d[3] == mm2->d[3]) &&
+   	  (mm1->n3 == mm2->n3) &&
+   	  (mm1->lut == mm2->lut) );
+}
+
 /* compare_control_par() checks that two control_par objects are deeply-equal,
    i.e. the memorry allocations contain equal values, and other fields are
    directly equal.
@@ -293,6 +314,7 @@ void free_control_par(control_par *cp) {
    Returns:
    True if equal, false otherwise.
 */
+
 int compare_control_par(control_par *c1, control_par *c2) {
     int cam;
     
