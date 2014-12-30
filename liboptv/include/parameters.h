@@ -72,7 +72,7 @@ typedef struct {
 
 control_par* read_control_par(char *filename);
 void free_control_par(control_par *cp);
-int compare_mm_np(mm_np *mm1, mm_np *mm2)ף
+int compare_mm_np(mm_np *mm1, mm_np *mm2);
 int compare_control_par(control_par *c1, control_par *c2);
 
 #endif
