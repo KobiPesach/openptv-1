@@ -295,13 +295,15 @@ void free_control_par(control_par *cp) {
 
 int compare_mm_np(mm_np *mm1, mm_np *mm2)
 {
-	return (
-	     (mm1->nlay == mm2->nlay) && 
-        (mm1->n1 == mm2->n1) && 
-	     (mm1->n2[3] == mm2->n2[3]) && 
-   	  (mm1->d[3] == mm2->d[3]) &&
-   	  (mm1->n3 == mm2->n3) &&
-   	  (mm1->lut == mm2->lut) );
+    if ((mm1->nlay == mm2->nlay) &&
+       (mm1->n1 == mm2->n1)  &&
+       (mm1->n2[3] == mm2->n2[3]) &&
+       (mm1->d[3] == mm2->d[3]) &&
+       (mm1->n3 == mm2->n3) &&
+       (mm1->lut == mm2->lut))
+	return 1;
+    else
+	return 0;
 }
 
 /* compare_control_par() checks that two control_par objects are deeply-equal,
@@ -335,10 +337,7 @@ int compare_control_par(control_par *c1, control_par *c2) {
     if (c1->pix_x != c2->pix_x) return 0;
     if (c1->pix_y != c2->pix_y) return 0;
     if (c1->chfield != c2->chfield) return 0;
-    if (c1->mm->n1 != c2->mm->n1) return 0;
-    if (c1->mm->n2[0] != c2->mm->n2[0]) return 0;
-    if (c1->mm->n3 != c2->mm->n3) return 0;
-    if (c1->mm->d[0] != c2->mm->d[0]) return 0;
+    if !(compare_mm_np(c1->mm,c2->mm)) return 0;
 
     return 1;
 }
