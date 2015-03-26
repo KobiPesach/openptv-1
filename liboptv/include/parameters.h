@@ -41,7 +41,7 @@ int compare_volume_par(volume_par *v1, volume_par *v2);
 
 
 typedef struct {
-    int  	nlay; 
+    int  nlay; 
     double  n1;
     double  n2[3];
     double  d[3];
