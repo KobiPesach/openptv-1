@@ -229,8 +229,12 @@ control_par* read_control_par(char *filename) {
     
     ret->img_base_name = (char **) calloc(ret->num_cams, sizeof(char*));
     ret->cal_img_base_name = (char **) calloc(ret->num_cams, sizeof(char *));
-    ret->mm = (mm_np *) malloc(sizeof(mm_np));
+    ret->mm = (mm_np *) malloc(sizeof(mm_np)); //dynamic allocation of a pointer 
     
+    ret->mm->n2[1]=0;
+    ret->mm->n2[2]=0;
+    ret->mm->d[1]=0;
+    ret->mm->d[2]=0;	 	
     
     for (cam = 0; cam < ret->num_cams; cam++) {
         if (fscanf(par_file, "%s\n", line) == 0) goto handle_error;
@@ -252,7 +256,8 @@ control_par* read_control_par(char *filename) {
     if(fscanf(par_file, "%lf\n", &(ret->mm->n1)) == 0) goto handle_error;
     if(fscanf(par_file, "%lf\n", &(ret->mm->n2[0])) == 0) goto handle_error;
     if(fscanf(par_file, "%lf\n", &(ret->mm->n3)) == 0) goto handle_error;
-    if(fscanf(par_file, "%lf\n", &(ret->mm->d[0])) == 0) goto handle_error; 
+    if(fscanf(par_file, "%lf\n", &(ret->mm->d[0])) == 0) goto handle_error;
+	 
     
     fclose(par_file);
     return ret;
@@ -297,8 +302,12 @@ int compare_mm_np(mm_np *mm1, mm_np *mm2)
 {
     if ((mm1->nlay == mm2->nlay) &&
        (mm1->n1 == mm2->n1)  &&
-       (mm1->n2[3] == mm2->n2[3]) &&
-       (mm1->d[3] == mm2->d[3]) &&
+       (mm1->n2[0] == mm2->n2[0]) &&
+       (mm1->n2[1] == mm2->n2[1]) &&
+       (mm1->n2[2] == mm2->n2[2]) &&
+       (mm1->d[0] == mm2->d[0]) &&
+       (mm1->d[1] == mm2->d[1]) &&
+       (mm1->d[2] == mm2->d[2]) &&
        (mm1->n3 == mm2->n3) &&
        (mm1->lut == mm2->lut))
 	return 1;
@@ -337,7 +346,7 @@ int compare_control_par(control_par *c1, control_par *c2) {
     if (c1->pix_x != c2->pix_x) return 0;
     if (c1->pix_y != c2->pix_y) return 0;
     if (c1->chfield != c2->chfield) return 0;
-    if !(compare_mm_np(c1->mm,c2->mm)) return 0;
+    if (!(compare_mm_np(c1->mm,c2->mm))) return 0;
 
     return 1;
 }
