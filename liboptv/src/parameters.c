@@ -67,7 +67,7 @@ handle_error:
    6. dvzmax
    7. dangle
    8. dacc
-   9. add
+   9. add 
    
    Arguments:
    char *filename - path to the text file containing the parameters.
