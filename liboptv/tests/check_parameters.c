@@ -126,7 +126,7 @@ START_TEST(test_read_control_par)
     
   
     cpar = read_control_par("testing_fodder/parameters/ptv.par");
-    fail_unless(compare_control_par(cpar, &cpar_correct));
+    fail_unless(compare_control_par(cpar, &cpar_correct) == 1);
 }
 END_TEST
 
